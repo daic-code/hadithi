@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { InstagramIcon } from "./ui";
 
 const links = [
   { href: "/services", label: "Services" },
@@ -12,7 +11,7 @@ const links = [
   { href: "/about", label: "About" },
 ];
 
-export function Header({ whatsappUrl, instagramUrl }: { whatsappUrl: string; instagramUrl: string }) {
+export function Header({ whatsappUrl }: { whatsappUrl: string }) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -42,15 +41,9 @@ export function Header({ whatsappUrl, instagramUrl }: { whatsappUrl: string; ins
               {link.label}
             </Link>
           ))}
-          <a aria-label="Hadithi Events on Instagram" className="icon-link mobile-instagram" href={instagramUrl} target="_blank" rel="noreferrer">
-            <InstagramIcon /> <span>Instagram</span>
-          </a>
           <a className="button button-small mobile-whatsapp" href={whatsappUrl} target="_blank" rel="noreferrer">Chat on WhatsApp</a>
         </nav>
         <div className="nav-actions">
-          <a aria-label="Hadithi Events on Instagram" className="icon-link desktop-instagram" href={instagramUrl} target="_blank" rel="noreferrer">
-            <InstagramIcon />
-          </a>
           <a className="button button-small desktop-whatsapp" href={whatsappUrl} target="_blank" rel="noreferrer">Chat on WhatsApp</a>
         </div>
       </div>

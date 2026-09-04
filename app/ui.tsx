@@ -22,7 +22,7 @@ export function Footer({ businessEmail, whatsappUrl, instagramUrl }: { businessE
       <span aria-hidden="true"> · </span>
       <a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp</a>
       <span aria-hidden="true"> · </span>
-      <a className="icon-link" href={instagramUrl} target="_blank" rel="noreferrer"><InstagramIcon /> <span>Instagram</span></a>
+      <a aria-label="Hadithi Events on Instagram" className="icon-link" href={instagramUrl} target="_blank" rel="noreferrer"><InstagramIcon /></a>
     </div>
     <div>© {new Date().getFullYear()} · Nairobi, Kenya</div>
   </div></footer>;

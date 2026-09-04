@@ -17,7 +17,7 @@ export type SiteSettings = {
 };
 
 const starterSiteSettings: SiteSettings = {
-  businessEmail: "hello@hadithievents.co",
+  businessEmail: "hadithievents@gmail.com",
   whatsAppNumber: "254768249081",
   instagramUrl: "https://www.instagram.com/hadithi_events",
 };

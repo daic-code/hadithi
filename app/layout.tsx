@@ -24,7 +24,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html lang="en">
       <body>
-        <Header instagramUrl={settings.instagramUrl} whatsappUrl={chatUrl} />
+        <Header whatsappUrl={chatUrl} />
         <main>{children}</main>
         <Footer businessEmail={settings.businessEmail} instagramUrl={settings.instagramUrl} whatsappUrl={chatUrl} />
       </body>

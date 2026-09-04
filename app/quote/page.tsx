@@ -1,6 +1,23 @@
 import { PageIntro } from "../ui";
+import { QuoteForm } from "./quote-form";
 import { getSiteSettings, whatsappUrl } from "../../sanity/lib/content";
 
 export const dynamic = "force-dynamic";
 
-export default async function QuotePage() { const settings = await getSiteSettings(); return <><PageIntro eyebrow="Plan with us" title="Tell us what you&apos;re imagining." copy="A few details are enough to get started. We&apos;ll get back to you within two working days." /><section className="shell form-layout"><form className="quote-form"><div className="form-two"><label>Event type<select defaultValue=""><option value="" disabled>Choose one</option><option>Corporate</option><option>Wedding</option><option>Sports & tournament</option><option>Private & personal</option></select></label><label>Event date<input type="date" /></label></div><div className="form-two"><label>Budget range<select defaultValue=""><option value="" disabled>Select a range</option><option>Under KES 250,000</option><option>KES 250,000–500,000</option><option>KES 500,000–1M</option><option>KES 1M+</option></select></label><label>Expected guests<input type="number" placeholder="e.g. 100" /></label></div><label>Tell us a little more<textarea rows={5} placeholder="What are you trying to make happen?" /></label><div className="form-two"><label>Your name<input type="text" placeholder="Full name" /></label><label>Email address<input type="email" placeholder="you@company.com" /></label></div><label>Phone / WhatsApp number<input type="tel" placeholder="+254" /></label><button className="button" type="submit">Send inquiry <span>→</span></button></form><aside><span>What happens next</span><h2>We&apos;ll pick up the conversation.</h2><p>We&apos;ll review your brief, find the right shape for it, and come back with clear next steps.</p><a href={whatsappUrl(settings.whatsAppNumber)}>Prefer WhatsApp? Chat with us →</a></aside></section></>; }
+export default async function QuotePage() {
+  const settings = await getSiteSettings();
+  const chatUrl = whatsappUrl(settings.whatsAppNumber);
+
+  return <>
+    <PageIntro eyebrow="Plan with us" title="Tell us what you&apos;re imagining." copy="A few details are enough to get started. We&apos;ll get back to you within two working days." />
+    <section className="shell form-layout">
+      <QuoteForm whatsappUrl={chatUrl} />
+      <aside>
+        <span>What happens next</span>
+        <h2>We&apos;ll pick up the conversation.</h2>
+        <p>We&apos;ll review your brief, find the right shape for it, and come back with clear next steps.</p>
+        <a href={chatUrl} target="_blank" rel="noreferrer">Prefer WhatsApp? Chat with us →</a>
+      </aside>
+    </section>
+  </>;
+}
