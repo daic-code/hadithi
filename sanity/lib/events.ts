@@ -10,7 +10,8 @@ const eventsQuery = `*[_type == "event"] | order(date asc) {
   description,
   "image": image.asset->url,
   ticketUrl,
-  status
+  status,
+  "mediaLinks": mediaLinks[]{ label, url }
 }`;
 
 type SanityEvent = {
@@ -23,6 +24,7 @@ type SanityEvent = {
   image?: string;
   ticketUrl?: string;
   status?: Event["status"];
+  mediaLinks?: { label?: string; url?: string }[] | null;
 };
 
 export async function getEvents(): Promise<Event[]> {
@@ -41,6 +43,9 @@ export async function getEvents(): Promise<Event[]> {
       image: event.image || fallbackEvents[0].image,
       ticketUrl: event.ticketUrl || "#contact",
       status: event.status || "Upcoming",
+      mediaLinks: (event.mediaLinks || [])
+        .filter((link): link is { label?: string; url: string } => Boolean(link?.url))
+        .map((link) => ({ label: link.label || "Listen", url: link.url })),
     }));
   } catch {
     logSanityFallback("events");

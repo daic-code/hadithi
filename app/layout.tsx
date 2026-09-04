@@ -7,6 +7,12 @@ import { getSiteSettings, whatsappUrl } from "../sanity/lib/content";
 export const metadata: Metadata = {
   title: "Hadithi Events | Events worth showing up for",
   description: "Event planning and production in Nairobi, Kenya.",
+  openGraph: {
+    title: "Hadithi Events | Events worth showing up for",
+    description: "Event planning and production in Nairobi, Kenya.",
+    images: ["/logo-full.png"],
+    type: "website",
+  },
 };
 
 export const dynamic = "force-dynamic";
@@ -18,9 +24,9 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html lang="en">
       <body>
-        <Header whatsappUrl={chatUrl} />
+        <Header instagramUrl={settings.instagramUrl} whatsappUrl={chatUrl} />
         <main>{children}</main>
-        <Footer businessEmail={settings.businessEmail} whatsappUrl={chatUrl} />
+        <Footer businessEmail={settings.businessEmail} instagramUrl={settings.instagramUrl} whatsappUrl={chatUrl} />
       </body>
     </html>
   );

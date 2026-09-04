@@ -1,4 +1,4 @@
-import { isSanityConfigured, logSanityFallback, sanityFetch } from "./client";
+import { isSanityConfigured, logSanityFallback, sanityFetch, withoutEmptyValues } from "./client";
 import { getEvents } from "./events";
 import { cache } from "react";
 
@@ -11,13 +11,15 @@ export type PortfolioItem = {
 export type SiteSettings = {
   businessEmail: string;
   whatsAppNumber: string;
+  instagramUrl: string;
   aboutImage?: string;
   aboutImages?: string[];
 };
 
 const starterSiteSettings: SiteSettings = {
   businessEmail: "hello@hadithievents.co",
-  whatsAppNumber: "254700000000",
+  whatsAppNumber: "254768249081",
+  instagramUrl: "https://www.instagram.com/hadithi_events",
 };
 
 function portfolioItemsFromPastEvents(events: Awaited<ReturnType<typeof getEvents>>): PortfolioItem[] {
@@ -61,8 +63,8 @@ export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
   if (!isSanityConfigured) return starterSiteSettings;
 
   try {
-    const settings = await sanityFetch<Partial<SiteSettings> | null>(`*[_type == "siteSettings"][0] { businessEmail, whatsAppNumber, "aboutImage": aboutImage.asset->url, "aboutImages": aboutImages[].asset->url }`);
-    return { ...starterSiteSettings, ...settings };
+    const settings = await sanityFetch<Partial<SiteSettings> | null>(`*[_type == "siteSettings"][0] { businessEmail, whatsAppNumber, instagramUrl, "aboutImage": aboutImage.asset->url, "aboutImages": aboutImages[].asset->url }`);
+    return { ...starterSiteSettings, ...withoutEmptyValues(settings) };
   } catch {
     logSanityFallback("site settings");
     return starterSiteSettings;
@@ -79,6 +81,10 @@ export async function getAboutImages(): Promise<string[]> {
   return ["https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1300&q=85"];
 }
 
+// Accepts 0768249081, +254 768 249 081 or 254768249081 and always produces a wa.me link
+// in international format. Kenyan numbers written with a leading 0 get the 254 country code.
 export function whatsappUrl(number: string) {
-  return `https://wa.me/${number.replace(/\D/g, "")}`;
+  const digits = (number || "").replace(/\D/g, "");
+  const international = digits.startsWith("0") ? `254${digits.slice(1)}` : digits;
+  return `https://wa.me/${international}`;
 }

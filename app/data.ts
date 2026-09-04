@@ -1,3 +1,8 @@
+export type EventLink = {
+  label: string;
+  url: string;
+};
+
 export type Event = {
   name: string;
   category: "Podcast" | "Fashion" | "Sport" | "Community";
@@ -7,6 +12,8 @@ export type Event = {
   image: string;
   ticketUrl: string;
   status: "Upcoming" | "Past";
+  // Watch / listen links for the event: YouTube, Spotify, Apple Podcasts, and so on.
+  mediaLinks: EventLink[];
 };
 
 export const events: Event[] = [
@@ -19,6 +26,7 @@ export const events: Event[] = [
     image: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=1200&q=85",
     ticketUrl: "https://www.moohk.com",
     status: "Upcoming",
+    mediaLinks: [],
   },
   {
     name: "Hadithi Runway — Volume 01",
@@ -29,6 +37,7 @@ export const events: Event[] = [
     image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=85",
     ticketUrl: "https://www.moohk.com",
     status: "Upcoming",
+    mediaLinks: [],
   },
   {
     name: "Hadithi Padel: Corporate Connect",
@@ -39,6 +48,7 @@ export const events: Event[] = [
     image: "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&fit=crop&w=1200&q=85",
     ticketUrl: "#contact",
     status: "Upcoming",
+    mediaLinks: [],
   },
 ];
 

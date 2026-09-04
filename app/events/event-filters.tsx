@@ -38,9 +38,18 @@ export function EventFilters({ events }: { events: Event[] }) {
             <p>{event.date} · {event.venue}</p>
             <p className="event-copy">{event.description}</p>
             {event.status === "Past" ? (
-              <span className="text-link " aria-label="Tickets are unavailable for this past event">Get tickets</span>
+              <span className="text-link ticket-unavailable" aria-label="Tickets are unavailable for this past event">Get tickets</span>
             ) : (
               <a className="text-link clay-link" href={event.ticketUrl} target="_blank" rel="noreferrer">Get tickets <span aria-hidden="true">→</span></a>
+            )}
+            {event.mediaLinks.length > 0 && (
+              <div className="media-links">
+                {event.mediaLinks.map((link) => (
+                  <a className="media-link" href={link.url} key={link.url} target="_blank" rel="noreferrer">
+                    {link.label}
+                  </a>
+                ))}
+              </div>
             )}
           </article>
         ))}
